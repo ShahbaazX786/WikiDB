@@ -14,7 +14,14 @@ app.use(express.static('public')); //using the static files by express server. e
 // bodyParser middleware for parsing the data to JSON
 app.use(bodyParser.urlencoded({extended:true}));
 
-mongoose.connect("mongodb://localhost:27017/wikiDB",{useNewUrlParser:true}); // mongodb connection string
+mongoose.connect("mongodb://127.0.0.1:27017/wikiDB",{useNewUrlParser:true},function(err){ // now after v5+ localhost is replaced by 127.0.0.1 or 0.0.0.0 so.. it is what it is....
+    if(err){
+        console.error(err);
+    }
+    else{
+        console.log('Successfully connected to the DB bro!!'); //just added a simple function to make sure we are really connected to the mongodb.
+    }
+}); // mongodb connection string
 
 const articleSchema = new mongoose.Schema({ //creating the articleschema which is nothing but the blueprint of our collection.
     title:String,
