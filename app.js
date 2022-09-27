@@ -14,6 +14,14 @@ app.use(express.static('public')); //using the static files by express server. e
 // bodyParser middleware for parsing the data to JSON
 app.use(bodyParser.urlencoded({extended:true}));
 
+mongoose.connect("mongodb://localhost:27017/wikiDB",{useNewUrlParser:true}); // mongodb connection string
+
+const articleSchema = new mongoose.Schema({ //creating the articleschema which is nothing but the blueprint of our collection.
+    title:String,
+    content:String
+});
+
+const Article = new mongoose.model('Article', articleSchema); //creating the model(object) from the schema.(note: the first parameter is the collection name in singular Noun[means first letter capital and if collection name is articles then use Article]);
 
 
 app.listen(PORT,()=>{
