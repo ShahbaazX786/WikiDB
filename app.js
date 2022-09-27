@@ -31,6 +31,20 @@ const articleSchema = new mongoose.Schema({ //creating the articleschema which i
 const Article = new mongoose.model('Article', articleSchema); //creating the model(object) from the schema.(note: the first parameter is the collection name in singular Noun[means first letter capital and if collection name is articles then use Article]);
 
 
+//routes here
+
+app.get('/articles', function(req,res){
+    Article.find({}, function(err,foundArticles){
+        if(!err){
+            console.log(foundArticles);
+            res.send(foundArticles);
+        }
+        else{
+            res.send(err);
+        }
+    });
+});
+
 app.listen(PORT,()=>{
     console.log('Server started at port '+PORT+' bro!');
 });
