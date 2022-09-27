@@ -61,6 +61,21 @@ app.post('/articles', function(req,res){
     });
 });
 
+
+app.delete('/articles', function(req,res){
+    Article.deleteMany({}, function(err){
+        if(!err){
+            res.send('Whoa! all the docs deleted bro!!');
+        }
+        else{
+            res.send(err);
+        }
+    });
+});
+
+
 app.listen(PORT,()=>{
     console.log('Server started at port '+PORT+' bro!');
 });
+
+
