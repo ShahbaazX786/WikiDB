@@ -34,7 +34,8 @@ const Article = new mongoose.model('Article', articleSchema); //creating the mod
 //routes here
 //supposedly express is written in js and js has a functionality called as chaining and the below route method is called as "route chaining".
 // in this we use app.route().get().post().delete() etc to chain all the methods to a single route i.e., ('/articles')
-app.route('/articles').get(function(req,res){
+app.route('/articles')
+.get(function(req,res){
     Article.find({}, function(err,foundArticles){
         if(!err){
             // console.log(foundArticles);
@@ -44,7 +45,8 @@ app.route('/articles').get(function(req,res){
             res.send(err);
         }
     });
-}).post(function(req,res){
+})
+.post(function(req,res){
     const newArticle = new Article({
         title:req.body.title,
         content:req.body.content
@@ -57,7 +59,8 @@ app.route('/articles').get(function(req,res){
             res.send(err);
         }
     });
-}).delete(function(req,res){
+})
+.delete(function(req,res){
     Article.deleteMany({}, function(err){
         if(!err){
             res.send('Whoa! all the docs deleted bro!!');
@@ -71,13 +74,10 @@ app.route('/articles').get(function(req,res){
 
 // so we basically reformatted / restructred our code to avoid repeated route name...sheeeeeshhhh it is what it is......
 // app.get('/articles', );
-
-
 // app.post('/articles', );
-
-
 // app.delete('/articles', );
 
+// app.route('/articles/:id').get();
 
 app.listen(PORT,()=>{
     console.log('Server started at port '+PORT+' bro!');
