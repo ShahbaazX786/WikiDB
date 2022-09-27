@@ -90,8 +90,8 @@ app.route('/articles/:id')
     });
 })
 .put(function(req,res){
-    const id = req.params.id; //this function will not work in mongodb v5+
-    Article.update({_id:id},{title:req.body.title, content:req.body.content},{overwrite:true},function(err,result){  //this update is the mongoose method which is an implementation of PUT method in mongoDB and it takes 3 parameters, [{conditions(what to check)},{updates(what to update)},{overwrite permission(true of false)}] and we report the status with a callback function.
+    const id = req.params.id; //update function is deprecated in v5+ of mongodb instead use updateOne, updateMany.
+    Article.updateOne({_id:id},{title:req.body.title, content:req.body.content},function(err,result){ //also now mongodb doesn't allow overwrite:true parameter in this function instead use ==>  //this update is the mongoose method which is an implementation of PUT method in mongoDB and it takes 2 parameters, [{conditions(what to check)},{updates(what to update)}] and we report the status with a callback function.
         if(!err){
             res.send('Document data successfully updated bro!');
         }
