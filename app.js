@@ -88,6 +88,17 @@ app.route('/articles/:id')
             res.send("No matching artile found bro!"+err);
         }
     });
+})
+.put(function(req,res){
+    const id = req.params.id; //this function will not work in mongodb v5+
+    Article.update({_id:id},{title:req.body.title, content:req.body.content},{overwrite:true},function(err,result){  //this update is the mongoose method which is an implementation of PUT method in mongoDB and it takes 3 parameters, [{conditions(what to check)},{updates(what to update)},{overwrite permission(true of false)}] and we report the status with a callback function.
+        if(!err){
+            res.send('Document data successfully updated bro!');
+        }
+        else{
+            res.send('Whoops! there was some error while updating the data: '+err);
+        }
+    });
 });
 
 app.listen(PORT,()=>{
