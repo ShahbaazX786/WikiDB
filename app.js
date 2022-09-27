@@ -36,8 +36,24 @@ const Article = new mongoose.model('Article', articleSchema); //creating the mod
 app.get('/articles', function(req,res){
     Article.find({}, function(err,foundArticles){
         if(!err){
-            console.log(foundArticles);
+            // console.log(foundArticles);
             res.send(foundArticles);
+        }
+        else{
+            res.send(err);
+        }
+    });
+});
+
+
+app.post('/articles', function(req,res){
+    const newArticle = new Article({
+        title:req.body.title,
+        content:req.body.content
+    });
+    newArticle.save(function(err){
+        if(!err){
+            res.send('New Article successfully added into the DB!')
         }
         else{
             res.send(err);
