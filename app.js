@@ -77,7 +77,18 @@ app.route('/articles')
 // app.post('/articles', );
 // app.delete('/articles', );
 
-// app.route('/articles/:id').get();
+app.route('/articles/:id')
+.get(function(req,res){
+    const id = req.params.id; //you can use id,title,content also
+    Article.findOne({_id:id}, function(err, foundArticle){ //but id seems to be unique so i just used _id
+        if(foundArticle){
+            res.send(foundArticle);
+        }
+        else{
+            res.send("No matching artile found bro!"+err);
+        }
+    });
+});
 
 app.listen(PORT,()=>{
     console.log('Server started at port '+PORT+' bro!');
