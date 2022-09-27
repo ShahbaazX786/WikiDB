@@ -99,6 +99,17 @@ app.route('/articles/:id')
             res.send('Whoops! there was some error while updating the data: '+err);
         }
     });
+})
+.patch(function(req,res){
+    const id = req.params.id; 
+    Article.updateOne({_id:id},{$set:req.body},function(err,result){ //here you used req.body as $set and what it does is it updates whatever values the req.body requests. ex: if only title is requested to be updated then it updates only title, else if both title and content is requested to be updated then it will update both of them/all of them.
+        if(!err){
+            res.send('Document data successfully updated bro!');
+        }
+        else{
+            res.send('Whoops! there was some error while updating the data: '+err);
+        }
+    });
 });
 
 app.listen(PORT,()=>{
